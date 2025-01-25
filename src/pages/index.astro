@@ -3,48 +3,61 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import '../styles/global.css'
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout title="Functional Mastery" description="Home page for Functional Mastery">
+	<div class="pointer-events-none left-0 top-0 -z-10 h-full w-full overflow-x-clip">
+      <section class="min-h-screen w-full px-6 pb-12 pt-16 sm:pb-20 sm:pt-52">
+        <div class="fade animate-fade pointer-events-none absolute left-0 top-0 -z-10 h-full w-full overflow-x-clip">
+          <div
+            class="parallax-element absolute top-0 flex h-max w-full transform-gpu items-end justify-end"
+            style={{
+              transform: "translateY(-73.2px) translate3d(0px, 0px, 0px)",
+            }}
+          >
+            <img
+              alt="Satellite"
+              class="homepageBounce mr-[15%] mt-[20%]"
+              height="400"
+              src="/fofx.svg"
+              loading="lazy"
+              width="400"
+            />
+          </div>
+        </div>
+        <header>
+          <div class="mx-auto flex w-full max-w-7xl flex-col gap-6 sm:gap-10">
+            <h1 class="reveal animate-revealHero1 text-balance text-4xl font-[800] leading-[1] -tracking-[2.5px] text-black text-[40px] sm:text-[60px] ">
+              <span class=" text-2xl sm:text-[50px] tracking-normal font-normal">
+                Become a{" "}
+              </span>{" "}
+              Avatar
+              <span class="text-2xl sm:text-[50px] pl-2 tracking-normal font-normal">
+                of{" "}
+              </span>{" "}
+              <br class="hidden lg:inline" />
+              Functional Programming
+            </h1>
+            <h2 class="reveal animate-revealHero2 -mt-2 text-balance text-xl sm:text-2xl font-medium text-black sm:-mt-4">
+              Compose and bend the flow of functions{" "}
+              <br class="hidden lg:inline" />
+              to build elegant applications.
+              <br class="hidden lg:inline" />
+            </h2>
+            {/* <div
+					class="reveal animate-revealHero3 flex flex-col gap-2 sm:items-center [@media(min-width:340px)]:flex-row"
+				>
+					<a
+						aria-label="Get started for free"
+						class="group flex w-max items-center gap-1 rounded-full border-white bg-neutral-200 px-3.5 py-2 text-sm font-semibold text-neutral-800 transition-colors sm:hover:bg-white sm:hover:text-black"
+						href="">Get started for free</a
+					>
+				</div> */}
+          </div>
+        </header>
+      </section>
+    </div>
+</BaseLayout>

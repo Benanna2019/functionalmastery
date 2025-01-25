@@ -1,0 +1,89 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import WorkshopLayout from "../../layouts/WorkshopLayout";
+import { render } from "astro:content";
+import { capitalizeFirstLetter } from "@/lib/utils";
+import workshopConfig from "@/lib/workshops-config";
+import BaseHead from "@/components/BaseHead.astro";
+import { ClientRouter } from "astro:transitions";
+
+export async function getStaticPaths() {
+  const workshops = await getCollection("cybertron");
+
+  return workshops.map((workshop) => ({
+    params: { slug: workshop.data.slug },
+    props: workshop,
+  }));
+}
+type Props = CollectionEntry<"cybertron">;
+
+const pathname = Astro.url.pathname;
+
+const breadcrumbs = pathname
+  .split("/")
+  .filter(Boolean)
+  .map((part, index, array) => ({
+    label: capitalizeFirstLetter(part),
+    path: "/" + array.slice(0, index + 1).join("/"),
+  }));
+
+const configData = workshopConfig.find((workshop) => {
+  const slug = Astro.params.slug.split("/")[0];
+  return workshop.id === slug;
+}) as any;
+
+const workshop = Astro.props;
+const { Content } = await render(workshop);
+const data = configData.data;
+const { title, excerpt: description, stackBlitzUrl } = workshop.data;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+    <ClientRouter />
+  </head>
+  <WorkshopLayout client:only="react" data={data} breadcrumbs={breadcrumbs}>
+    <div class="h-max">
+      <div class="left-0 top-0 -z-10 h-full w-full overflow-x-clip">
+        <section class="w-full px-6 pt-16 sm:pt-32">
+          <header style={{ textWrap: "balance" }}>
+            <div class="flex flex-col gap-6 sm:gap-10">
+              <h1
+                class="mx-auto max-w-5xl font-mono text-center text-7xl font-[800] sm:text-[80px] [@media(max-width:500px)]:text-5xl"
+              >
+                {title}
+              </h1>
+              <h2
+                class="mx-auto max-w-3xl text-center text-xl prose font-medium"
+              >
+                {description}
+              </h2>
+            </div>
+          </header>
+        </section>
+        <section class="flex w-full gap-14 px-6 sm:pb-16">
+          <div
+            class="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-center gap-10 lg:flex-nowrap lg:justify-between"
+          >
+            <div class="prose prose-img:rounded-xl w-full">
+              <div>
+                <div>
+                  <Content />
+
+                  <div class="hidden h-[500px] w-full sm:block xl:h-[750px]">
+                    <iframe
+                      src={stackBlitzUrl}
+                      title="code editor"
+                      class="h-full w-full transition-all"></iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </WorkshopLayout>
+</html>

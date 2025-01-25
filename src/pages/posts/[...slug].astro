@@ -1,0 +1,68 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import BlogPost from "../../layouts/BlogPost.astro";
+import { render } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map((post) => ({
+    params: { slug: post.data.slug },
+    props: post,
+  }));
+}
+type Props = CollectionEntry<"posts">;
+
+const post = Astro.props;
+const { title, excerpt } = post.data;
+const { Content } = await render(post);
+---
+
+<!doctype html>
+<BaseLayout>
+  <div class="left-0 top-0 -z-10 h-full w-full overflow-x-clip">
+    <section class="w-full px-6 pb-12 pt-16 sm:pb-20 sm:pt-32">
+      <div
+        class="fade animate-fade absolute left-0 top-0 -z-10 h-full w-full overflow-x-clip"
+      >
+        <!-- Keep this but find ideas more fitting for pages -->
+        <!-- <div
+          class="parallax-element absolute top-0 flex h-max w-full transform-gpu items-end justify-end"
+          style="transform: translateY(-73.2px) translate3d(0px, 0px, 0px);"
+        >
+          <img
+            alt="Satellite"
+            class="homepageBounce mr-[10%] mt-[10%]"
+            height="400"
+            src="/fofx.svg"
+            loading="lazy"
+            width="400"
+          />
+        </div>-->
+      </div>
+      <header style="text-wrap: balance;">
+        <div class="flex flex-col gap-6 sm:gap-10">
+          <h1
+            class="mx-auto max-w-5xl text-center text-7xl font-[800] sm:text-[80px] [@media(max-width:500px)]:text-5xl"
+          >
+            {title}
+          </h1>
+          <h2 class="mx-auto max-w-3xl text-center text-xl font-medium">
+            {excerpt}
+          </h2>
+        </div>
+      </header>
+    </section>
+    <section class="relative z-10 flex w-full gap-14 px-6 sm:pb-16">
+      <div
+        class="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-center gap-10 lg:flex-nowrap lg:justify-between"
+      >
+        <div
+          class="prose prose-p:opacity-90 prose-img:rounded-xl z-20 mx-auto w-5/6 max-w-3xl text-white"
+        >
+          <Content />
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
