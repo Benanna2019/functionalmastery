@@ -71,7 +71,11 @@ const { title, excerpt: description, stackBlitzUrl } = workshop.data;
               <div>
                 <div>
                   <Content />
-
+                  <div class="h-[500px] w-full sm:hidden xl:h-[750px] pt-20">
+                    <h2 class="text-center text-4xl font-medium">
+                      Flip phone to landscape or open on desktop
+                    </h2>
+                  </div>
                   <div class="hidden h-[500px] w-full sm:block xl:h-[750px]">
                     <iframe
                       src={stackBlitzUrl}
