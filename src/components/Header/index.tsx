@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { Button, buttonVariants } from "../ui/button";
 
 // ** Import Clerk/Convex Auth methods **
 
@@ -40,6 +41,7 @@ export default function Header() {
               <a
                 aria-label="Workshops"
                 className={cn(
+                  buttonVariants({ variant: "link" }),
                   "group flex w-max cursor-default items-center gap-1 px-3.5 py-2 text-sm font-medium transition-colors hover:cursor-pointer"
                 )}
                 href="/workshops"
@@ -73,6 +75,7 @@ export default function Header() {
               <a
                 aria-label="Posts"
                 className={cn(
+                  buttonVariants({ variant: "link" }),
                   "group flex w-max cursor-default items-center gap-1 px-3.5 py-2 text-sm font-medium transition-colors hover:cursor-pointer"
                 )}
                 href="/posts"
@@ -90,6 +93,16 @@ export default function Header() {
               <Authenticated>
                 <UserButton />
               </Authenticated> */}
+              <a
+                aria-label="Newsletter Sign Up"
+                className={cn(
+                  buttonVariants({ variant: "link" }),
+                  "group flex w-max cursor-default items-center gap-1 px-3.5 py-2 text-sm font-medium transition-colors hover:cursor-pointer"
+                )}
+                href="/newsletter"
+              >
+                Newsletter
+              </a>
             </div>
           </div>
         </nav>
@@ -171,13 +184,13 @@ export default function Header() {
             </div>
           </nav>
           <div className="mt-10 flex gap-4 *:inline *:w-1/2 *:text-center *:text-base">
-            {/* <a
+            <a
               aria-label="Newsletter Sign Up"
               className="group flex w-max items-center gap-1 rounded-full border-white bg-neutral-200 px-3.5 py-2 text-sm font-semibold text-neutral-800 transition-colors sm:hover:bg-white sm:hover:text-black"
-              href="https://faequeite.ck.page/eb37af7d8f"
+              href="/newsletter"
             >
               Newsletter
-            </a> */}
+            </a>
             {/* {user.state.user ? (
 					<span
 						aria-label="Profile"
